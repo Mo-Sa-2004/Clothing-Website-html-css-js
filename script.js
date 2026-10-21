@@ -1,16 +1,16 @@
 const products = [
-    { id: 1, title: "Premium Cotton T-Shirt", category: "men", price: 59.99, image: "/images/cotton-t-shirt.jpg" },
-    { id: 2, title: "Elegant Silk Dress", category: "women", price: 189.99, image: "/images/Elegant-Dress.avif" },
-    { id: 3, title: "Leather Crossbody Bag", category: "accessories", price: 129.99, image: "/images/Leather-Bag.jpg" },
-    { id: 4, title: "Classic Denim Jacket", category: "men", price: 99.99, image: "/images/Classic-Jacket.webp" },
-    { id: 5, title: "Floral Summer Blouse", category: "women", price: 79.99, image: "/images/Floral-Blouse.jpg" },
-    { id: 6, title: "Minimalist Watch", category: "accessories", price: 249.99, image: "/images/Watch.jpg" },
-    { id: 7, title: "Wool Blend Sweater", category: "men", price: 119.99, image: "/images/Blend-Sweater.webp" },
-    { id: 8, title: "High-Waist Trousers", category: "women", price: 89.99, image: "/images/High-Waist.webp" },
-    { id: 9, title: "Vintage Sunglasses", category: "accessories", price: 89.99, image: "/images/Vintage-Sunglasses.jpg" },
-    { id: 10, title: "Casual Polo Shirt", category: "men", price: 69.99, image: "/images/Polo-Shirt.jpg" },
-    { id: 11, title: "Designer Blazer", category: "women", price: 159.99, image: "/images/Blazer-women.webp" },
-    { id: 12, title: "Premium Backpack", category: "accessories", price: 149.99, image: "/images/Backpack.jpg" }
+    { id: 1, title: "Premium Cotton T-Shirt", category: "men", price: 59.99, image: "images/cotton-t-shirt.jpg" },
+    { id: 2, title: "Elegant Silk Dress", category: "women", price: 189.99, image: "images/Elegant-Dress.avif" },
+    { id: 3, title: "Leather Crossbody Bag", category: "accessories", price: 129.99, image: "images/Leather-Bag.jpg" },
+    { id: 4, title: "Classic Denim Jacket", category: "men", price: 99.99, image: "images/Classic-Jacket.webp" },
+    { id: 5, title: "Floral Summer Blouse", category: "women", price: 79.99, image: "images/Floral-Blouse.jpg" },
+    { id: 6, title: "Minimalist Watch", category: "accessories", price: 249.99, image: "images/Watch.jpg" },
+    { id: 7, title: "Wool Blend Sweater", category: "men", price: 119.99, image: "images/Blend-Sweater.webp" },
+    { id: 8, title: "High-Waist Trousers", category: "women", price: 89.99, image: "images/High-Waist.webp" },
+    { id: 9, title: "Vintage Sunglasses", category: "accessories", price: 89.99, image: "images/Vintage-Sunglasses.jpg" },
+    { id: 10, title: "Casual Polo Shirt", category: "men", price: 69.99, image: "images/Polo-Shirt.jpg" },
+    { id: 11, title: "Designer Blazer", category: "women", price: 159.99, image: "images/Blazer-women.webp" },
+    { id: 12, title: "Premium Backpack", category: "accessories", price: 149.99, image: "images/Backpack.jpg" }
 ];
 
 let cart = [];
@@ -89,12 +89,12 @@ function updateCartUI() {
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">âˆ’</button>
                         <span class="quantity">${item.quantity}</span>
                         <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
                     </div>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">Ã—</button>
             </div>
         `).join('');
         document.getElementById('cart-total').style.display = 'block';
