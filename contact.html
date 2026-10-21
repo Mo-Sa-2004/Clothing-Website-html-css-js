@@ -41,11 +41,12 @@
                     <p><i class="fas fa-map-marker-alt"></i> Location: Amman, Jordan</p>
                 </div>
 
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" rows="6" required></textarea>
+                <form class="contact-form" id="contact-form" novalidate>
+                    <input type="text" id="contact-name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="contact-email" name="email" placeholder="Your Email" required>
+                    <textarea id="contact-message" name="message" placeholder="Your Message" rows="6" required></textarea>
                     <button type="submit">Send Message</button>
+                    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
                 </form>
             </div>
         </section>
@@ -66,5 +67,6 @@
     </footer>
 
     <script src="nav.js"></script>
+    <script src="contact.js"></script>
 </body>
 </html>
