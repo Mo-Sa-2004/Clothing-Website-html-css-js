@@ -33,6 +33,7 @@ html {
     padding: 1rem 2rem;
     max-width: 1400px;
     margin: auto;
+    position: relative;
 }
 
 .logo {
@@ -109,6 +110,41 @@ html {
     align-items: center;
     justify-content: center;
     font-weight: 700;
+}
+
+/* Mobile hamburger button (hidden on desktop) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #1a1a1a;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8.5px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8.5px) rotate(-45deg);
 }
 /* Hero section dont forget to do it later when u finish the logo */
 .hero {
@@ -499,7 +535,21 @@ and we need to adjust a few things more for the photos and their info  */
 }
 
 @media (max-width: 768px) {
-    .nav-links { display: none; }
+    .menu-toggle { display: flex; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 1.5rem;
+        background: white;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #eaeaea;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    }
+    .nav-links.active { display: flex; }
     .hero-content h1 { font-size: 2.5rem; }
     .cart-model-content { width: 100%; }
     .form-row { grid-template-columns: 1fr; }
