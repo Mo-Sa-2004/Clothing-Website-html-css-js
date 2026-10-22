@@ -1,4 +1,4 @@
-// Mobile navigation toggle (shared by home.html and contact.html)
+// Mobile navigation toggle (shared by index.html and contact.html)
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
