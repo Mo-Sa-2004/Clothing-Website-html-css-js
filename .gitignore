@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Dependencies (if tooling like ESLint/Stylelint is added later)
+node_modules/
+
+# Local env files
+.env

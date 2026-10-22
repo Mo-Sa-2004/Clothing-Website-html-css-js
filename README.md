@@ -1,49 +1,101 @@
-<div align="center">
+# A&E Fashion -- Clothing Store Website
 
-# Hi, I'm Mohammed Saeed 👋
+A responsive front-end e-commerce site for a clothing brand, built with
+plain HTML, CSS, and JavaScript -- no frameworks, no build step. It has a
+browsable, filterable product catalog, a working shopping cart, a
+checkout form, and a contact page, all running entirely in the browser.
 
-### Backend Developer
+## Screenshots
 
-I build reliable backend systems and APIs, work comfortably across relational and non-relational databases, and I'm equally at home containerizing and deploying what I build.
+| Home | Cart |
+|---|---|
+| ![Homepage](screenshots/home-desktop.png) | ![Shopping cart](screenshots/cart.png) |
 
-</div>
+| Contact page | Mobile menu |
+|---|---|
+| ![Contact page](screenshots/contact-desktop.png) | ![Mobile navigation menu](screenshots/mobile-menu.png) |
 
----
+## Features
 
-## 🧰 Tech Stack & Tools
+- **Product catalog** -- 12 products across three categories (men's,
+  women's, accessories), rendered from a JS data array and filterable by
+  category.
+- **Shopping cart** -- add items, adjust quantity, remove items, and see
+  a running total, all kept in memory while the tab is open.
+- **Checkout flow** -- a shipping/payment form with input formatting
+  (card number, expiry, CVV) and a simulated order placement (there is
+  no real payment backend -- see Limitations below).
+- **Contact form** -- validates the name/email/message fields, shows an
+  inline success or error message, and simulates sending (again, no
+  real backend yet).
+- **Responsive design** -- a hamburger menu takes over the nav below
+  768px, and the layout adapts down to phone widths.
+- **About section** -- a short brand blurb plus feature highlights
+  (shipping, materials, returns).
 
-**Backend & Web Development**
+## Tech stack
 
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+- **HTML5** -- two pages, `index.html` and `contact.html`.
+- **CSS3** -- custom properties (design tokens) for the color palette,
+  Flexbox and Grid for layout, no CSS framework.
+- **Vanilla JavaScript** -- no libraries beyond the DOM APIs; split into
+  small, page-scoped files instead of one monolithic script.
+- **[Font Awesome](https://fontawesome.com/)** -- icons, loaded from a
+  CDN.
 
-**Databases**
+## Project structure
 
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+```
+Clothing-Website-html-css-js/
+|-- index.html       Homepage: hero, product grid, cart, checkout
+|-- contact.html     Contact page
+|-- shared.css       Header/nav/mobile-menu styles used by both pages
+|-- style.css        Homepage-specific styles
+|-- contact.css      Contact-page-specific styles
+|-- script.js        Product data, cart logic, checkout simulation
+|-- nav.js           Mobile hamburger menu toggle (shared)
+|-- contact.js       Contact form validation + submit handling
+|-- images/          Product and hero photos
+`-- screenshots/     Screenshots used in this README
+```
 
-**DevOps & Cloud**
+## Getting started
 
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
-![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=for-the-badge&logo=ansible&logoColor=white)
-![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+This is a static site with no dependencies or build step, so any of the
+following will work:
 
----
+1. **Just open it.** Clone the repo and open `index.html` directly in a
+   browser.
 
-## 🔗 Let's Connect
+   ```bash
+   git clone https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js.git
+   cd Clothing-Website-html-css-js
+   ```
 
-<div align="center">
+2. **Or serve it locally** (recommended, since some browsers restrict
+   features like relative image paths when opened via `file://`):
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohammad-saeed-ramadan-3280a2382/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:dfko44239@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Saeedzx6)
+   ```bash
+   python3 -m http.server 8000
+   # then open http://localhost:8000
+   ```
 
-</div>
+   Any other static file server (`npx serve`, the VS Code "Live Server"
+   extension, etc.) works the same way.
+
+## Known limitations
+
+This is a front-end-only project -- there is no server or database
+behind it, so:
+
+- The cart resets on page refresh (nothing is persisted).
+- "Placing an order" and "sending a message" are simulated with a
+  timeout; no email or payment is actually sent or charged.
+- Product data lives in `script.js` rather than coming from an API.
+
+These are intentional scope boundaries for a front-end portfolio piece,
+not bugs -- but they're worth knowing before judging it as a real store.
+
+## License
+
+[MIT](LICENSE)
