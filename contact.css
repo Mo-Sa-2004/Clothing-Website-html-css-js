@@ -4,8 +4,8 @@ html, body {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #f4f4f4;
-    color: #1a1a1a;
+    background-color: var(--color-bg-page);
+    color: var(--color-text);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@ body {
 /* Contact Section */
 .contact {
     padding: 8rem 2rem 6rem;
-    background-color: #ffffff;
+    background-color: var(--color-white);
 }
 
 .container {
@@ -36,7 +36,7 @@ body {
 
 .contact > p {
     font-size: 1.1rem;
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 3rem;
 }
 
@@ -47,11 +47,11 @@ body {
 
 .contact-info p {
     margin: 1rem 0;
-    color: #444;
+    color: var(--color-text-soft);
 }
 
 .contact-info i {
-    color: #3c81e9;
+    color: var(--color-primary);
     margin-right: 10px;
 }
 
@@ -66,7 +66,7 @@ body {
 .contact-form input,
 .contact-form textarea {
     padding: 1rem;
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     font-size: 1rem;
 }
@@ -74,7 +74,7 @@ body {
 .contact-form button {
     max-width: 50%;
     padding: 1rem;
-    background: #a5adb4;
+    background: var(--color-btn-neutral);
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 20px;
@@ -101,7 +101,7 @@ body {
 }
 
 .form-status.success {
-    color: #0d8155;
+    color: var(--color-success);
 }
 
 .form-status.error {
@@ -110,8 +110,8 @@ body {
 
 /* Footer */
 .footer {
-    background: #2b2828;
-    color: white;
+    background: var(--color-footer-bg);
+    color: var(--color-white);
     text-align: center;
     padding: 4rem 2rem 2rem;
     margin-top: auto; /* Ensures it stays at bottom */
@@ -127,19 +127,19 @@ body {
 }
 
 .footer-links a {
-    color: #bbb;
+    color: var(--color-footer-text);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: white;
+    color: var(--color-white);
 }
 
 .footer p {
     font-size: 0.9rem;
-    color: #bbb;
+    color: var(--color-footer-text);
 }
 
 /* Mobile */

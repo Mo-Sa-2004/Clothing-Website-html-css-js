@@ -1,8 +1,8 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #1a1a1a;
+    background-color: var(--color-bg-page);
+    color: var(--color-text);
 }
 
 html {
@@ -11,8 +11,8 @@ html {
 
 .cart-btn {
     position: relative;
-    background-color: #e9ecef;
-    border: 2px solid #e9ecef;
+    background-color: var(--color-bg-muted);
+    border: 2px solid var(--color-bg-muted);
     border-radius: 12px;
     padding: .8rem 1.2rem;
     cursor: pointer;
@@ -23,13 +23,13 @@ html {
     gap: 0.5rem;
 }
 .cart-btn:hover {
-    background-color: #3c81e9;
-    border-color: #3c81e9;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
 }
 .cart-count {
     background-color: #ff3b30;
-    color: #ffffff;
+    color: var(--color-white);
     border-radius: 50%;
     min-width: 20px;
     height: 20px;
@@ -59,7 +59,7 @@ html {
 }
 
 .hero-content {
-    color: white;
+    color: var(--color-white);
     z-index: 2;
     max-width: 700px;
     padding: 0 2rem;
@@ -72,7 +72,7 @@ html {
 }
 /* this is for the shopping button on hero  */
 .cta-btn {
-    background: white;
+    background: var(--color-white);
     color: black;
     padding: 1.2rem 3rem;
     border-radius: 30px;
@@ -94,7 +94,7 @@ html {
     padding: 6rem 2rem 4rem;
     max-width: 1400px;
     margin: 0 auto;
-    background: white;
+    background: var(--color-white);
 }
 /* this is for the section under the hero u just need to do the margin (VVVVMMM)*/
 
@@ -117,8 +117,8 @@ html {
 }
 
 .filter-btn {
-    background: #e9ecef;
-    border: 2px solid #e9ecef;
+    background: var(--color-bg-muted);
+    border: 2px solid var(--color-bg-muted);
     padding: 0.8rem 2rem;
     border-radius: 20px;
     cursor: pointer;
@@ -126,7 +126,7 @@ html {
 }
 
 .filter-btn.active, .filter-btn:hover {
-    background: white;
+    background: var(--color-white);
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
@@ -138,7 +138,7 @@ html {
 }
 .product-card {
     background: rgb(235, 232, 232);
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--color-border);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
@@ -168,8 +168,8 @@ html {
 }
 
 .add-to-cart-btn {
-    background: #a5adb4;
-    border: 2px solid #e9ecef;
+    background: var(--color-btn-neutral);
+    border: 2px solid var(--color-bg-muted);
     padding: 0.8rem 2rem;
     border-radius: 20px;
     cursor: pointer;
@@ -194,7 +194,7 @@ html {
     max-width: 700px;
     margin: 0 auto;
     text-align: center;
-    color: #444;
+    color: var(--color-text-soft);
     font-size: 1.05rem;
 }
 
@@ -206,8 +206,8 @@ html {
 }
 
 .about-feature {
-    background: white;
-    border: 1px solid #eaeaea;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
     border-radius: 16px;
     padding: 2rem 1.5rem;
     text-align: center;
@@ -221,7 +221,7 @@ html {
 
 .about-feature i {
     font-size: 2rem;
-    color: #3c81e9;
+    color: var(--color-primary);
     margin-bottom: 1rem;
 }
 
@@ -230,7 +230,7 @@ html {
 }
 
 .about-feature p {
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 0.95rem;
 }
 
@@ -249,7 +249,7 @@ html {
 }
 
 .cart-model-content {
-    background: white;
+    background: var(--color-white);
     width: 450px;
     height: 100%;
     position: absolute;
@@ -270,7 +270,7 @@ html {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #eaeaea;
+    border-bottom: 2px solid var(--color-border);
     margin-bottom: 2rem;
 }
 
@@ -285,7 +285,7 @@ html {
     display: flex;
     gap: 1rem;
     padding: 1rem 0;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid var(--color-border);
     position: relative;
 }
 
@@ -304,7 +304,7 @@ html {
 }
 
 .quantity-btn {
-    background: #e9ecef;
+    background: var(--color-bg-muted);
     border: none;
     width: 32px;
     height: 32px;
@@ -312,8 +312,8 @@ html {
     cursor: pointer;
 }
 .quantity-btn:hover {
-    background: #3c81e9;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     transition: all 0.4s ease;
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -325,7 +325,7 @@ html {
     background: none;
     border: none;
     font-size: 2rem;
-    color:  #333;
+    color:  var(--color-dark);
     cursor: pointer;
 }
 .remove-item:hover {
@@ -337,7 +337,7 @@ html {
 .empty-cart {
     text-align: center;
     padding: 4rem 1rem;
-    color: #666;
+    color: var(--color-text-muted);
 }
 
 .empty-cart-icon {
@@ -349,7 +349,7 @@ html {
 .cart-total {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 2px solid #eaeaea;
+    border-top: 2px solid var(--color-border);
 }
 
 .checkout-btn, .place-order-btn {
@@ -364,8 +364,8 @@ html {
 }
 
 .checkout-btn {
-    background: #3c81e9;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
 }
 .checkout-btn:hover {
     background: #335ecc;
@@ -374,8 +374,8 @@ html {
 }
 
 .place-order-btn {
-    background: #0d8155;
-    color: white;
+    background: var(--color-success);
+    color: var(--color-white);
 }
 .place-order-btn:hover {
     background: #0a5e3f;
@@ -386,15 +386,15 @@ html {
 .backtocart-btn {
     width: 100%;
     padding: 1rem;
-    background: #333;
-    color: white;
+    background: var(--color-dark);
+    color: var(--color-white);
     border: none;
     border-radius: 10px;
     margin-bottom: 2rem;
     cursor: pointer;
 }
 .backtocart-btn:hover {
-    background: #1a1a1a;
+    background: var(--color-text);
     transition: all 0.3s ease;
     transform: translateY(-1px);
 }
@@ -417,12 +417,12 @@ html {
 .form-group input, .form-group select {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #eaeaea;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
 }
 .form-group input:focus, .form-group select:focus {
     outline: none;
-    border-color: #3c81e9;
+    border-color: var(--color-primary);
     box-shadow: 0 0 5px rgba(60, 129, 233, 0.3);
 }
 
@@ -446,7 +446,7 @@ html {
 }
 .payment-method {
     padding: .5rem 1rem;
-    border: 2px solid #eaeaea;
+    border: 2px solid var(--color-border);
     border-radius: 8px;
     cursor: pointer;
     font-size: .8rem;
@@ -455,25 +455,25 @@ html {
 .payment-method.active,
 .payment-method:hover {
     background-color: #f0f8ff;
-    border-color: #3c81e9;
+    border-color: var(--color-primary);
 }
 
 /* Footer */
 .footer {
-    background: #2b2828;
-    color: white;
+    background: var(--color-footer-bg);
+    color: var(--color-white);
     text-align: center;
     padding: 4rem 2rem 2rem;
 }
 
 .footer-links a {
-    color: #bbb;
+    color: var(--color-footer-text);
     margin: 0 1rem;
     text-decoration: none;
 }
 
 .footer-links a:hover {
-    color: white;
+    color: var(--color-white);
 }
 
 @media (max-width: 768px) {
