@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 html, body {
     height: 100%;
 }
@@ -21,108 +15,6 @@ body {
 /* Push footer to bottom */
 .main-content {
     flex: 1;
-}
-
-/* Header */
-.header {
-    background-color: rgba(255, 255, 255, 0.95);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    backdrop-filter: blur(20px);
-    z-index: 1000;
-    border-bottom: 1px solid #eaeaea;
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    max-width: 1400px;
-    margin: auto;
-    position: relative;
-}
-
-.logo {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.02px;
-    color: #000000
-}
-.logo-link {
-    text-decoration: none;
-    color: inherit;
-}
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-}
-.nav-links a {
-    text-decoration: none;
-    color: #1a1a1a;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-    position: relative;
-}
-.nav-links a:hover {
-    color: #3c81e9;
-}
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #3c81e9;
-    transition: width 0.3s ease;
-    bottom: -5px;
-    left: 0;
-}
-.nav-links a:hover::after {
-    width: 100%;
-}
-.nav-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-/* Mobile hamburger button (hidden on desktop) */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 28px;
-    height: 20px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-.menu-toggle span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background: #1a1a1a;
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.menu-toggle.active span:nth-child(1) {
-    transform: translateY(8.5px) rotate(45deg);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: translateY(-8.5px) rotate(-45deg);
 }
 
 /* Contact Section */
@@ -252,23 +144,6 @@ body {
 
 /* Mobile */
 @media (max-width: 768px) {
-    .menu-toggle { display: flex; }
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        gap: 1.5rem;
-        background: white;
-        padding: 1.5rem 2rem;
-        border-bottom: 1px solid #eaeaea;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-    }
-    .nav-links.active {
-        display: flex;
-    }
     .contact h1 {
         font-size: 2.5rem;
     }
