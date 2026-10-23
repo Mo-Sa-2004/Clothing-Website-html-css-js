@@ -23,6 +23,8 @@
     <meta name="twitter:description" content="Your one-stop shop for the latest fashion trends.">
     <meta name="twitter:image" content="https://mo-sa-2004.github.io/Clothing-Website-html-css-js/icons/social-preview.jpg">
 
+    <link rel="canonical" href="https://mo-sa-2004.github.io/Clothing-Website-html-css-js/">
+
     <!-- The hero background is set via CSS (background: url(...) in
          style.css), so the browser wouldn't normally discover and start
          fetching it until after it finishes parsing that stylesheet --
@@ -39,6 +41,8 @@
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
         <nav class="nav">
@@ -52,6 +56,10 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
+                <!-- Announces cart changes ("Added X to cart", etc.) to
+                     screen readers -- the on-screen cart-count badge
+                     updates silently for everyone else. -->
+                <p id="cart-status" class="visually-hidden" role="status" aria-live="polite"></p>
                 <button class="cart-btn" id="cart-btn">
                     <i class="fas fa-shopping-cart"></i>
                     Cart
@@ -66,6 +74,7 @@
         </nav>
     </header>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
@@ -120,6 +129,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Cart Sidebar -->
     <aside class="cart-model" id="cart-model">

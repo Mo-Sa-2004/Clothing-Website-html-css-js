@@ -16,6 +16,7 @@ export default [
                 alert: "readonly",
                 setTimeout: "readonly",
                 localStorage: "readonly",
+                requestAnimationFrame: "readonly",
             },
         },
         rules: {

@@ -54,6 +54,22 @@
     top: 0;
 }
 
+/* Hides content visually while keeping it exposed to screen readers --
+   unlike display:none/visibility:hidden, which hide from assistive tech
+   too. Used for the cart's aria-live status region (announcing "Added
+   X to cart" etc. without an on-screen toast). */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Header */
 .header {
     background-color: rgba(255, 255, 255, 0.95);

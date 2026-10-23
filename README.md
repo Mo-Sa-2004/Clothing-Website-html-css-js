@@ -23,7 +23,8 @@ checkout form, and a contact page, all running entirely in the browser.
   women's, accessories), rendered from a JS data array and filterable by
   category.
 - **Shopping cart** -- add items, adjust quantity, remove items, and see
-  a running total, all kept in memory while the tab is open.
+  a running total. Persisted to `localStorage`, so it survives a page
+  refresh or closing and reopening the tab.
 - **Checkout flow** -- a shipping/payment form with input formatting
   (card number, expiry, CVV) and a simulated order placement (there is
   no real payment backend -- see Limitations below).
@@ -110,7 +111,6 @@ npm test             # cart-logic.js unit tests
 This is a front-end-only project -- there is no server or database
 behind it, so:
 
-- The cart resets on page refresh (nothing is persisted).
 - "Placing an order" and "sending a message" are simulated with a
   timeout; no email or payment is actually sent or charged.
 - Product data lives in `script.js` rather than coming from an API.

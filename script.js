@@ -47,7 +47,7 @@ function renderProducts(filter = "all") {
     
     grid.innerHTML = filtered.map(product => `
         <div class="product-card" data-category="${product.category}">
-            <img src="${product.image}" alt="${product.title}" class="product-image">
+            <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
             <div class="product-info">
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-category">${product.category.toUpperCase()}</p>
@@ -71,21 +71,47 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
+// Announces cart changes to screen readers via the aria-live region in
+// the header (#cart-status) -- the on-screen cart-count badge update is
+// silent, so without this, adding/removing/adjusting an item gives no
+// feedback at all to anyone not looking at that badge. Clears the
+// region first and sets the real text on the next frame: an aria-live
+// region only announces when its content actually changes, so setting
+// the same message twice in a row (e.g. clicking "Add to Cart" on the
+// same product twice) would otherwise silently not announce the second
+// time.
+function announceCartChange(message) {
+    const status = document.getElementById('cart-status');
+    if (!status) return;
+    status.textContent = '';
+    requestAnimationFrame(() => {
+        status.textContent = message;
+    });
+}
+
 // Cart functions
 function addToCart(id) {
     const product = products.find(p => p.id === id);
     cart = addItemToCart(cart, product);
     updateCartUI();
+    announceCartChange(`Added ${product.title} to cart.`);
 }
 
 function updateQuantity(id, change) {
+    const product = products.find(p => p.id === id);
     cart = updateItemQuantity(cart, id, change);
     updateCartUI();
+    const updatedItem = cart.find(item => item.id === id);
+    announceCartChange(updatedItem
+        ? `${product.title} quantity updated to ${updatedItem.quantity}.`
+        : `${product.title} removed from cart.`);
 }
 
 function removeFromCart(id) {
+    const product = products.find(p => p.id === id);
     cart = removeItemFromCart(cart, id);
     updateCartUI();
+    announceCartChange(`Removed ${product.title} from cart.`);
 }
 
 function updateCartUI() {
@@ -108,7 +134,7 @@ function updateCartUI() {
     } else {
         document.getElementById('cart-items').innerHTML = cart.map(item => `
             <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" class="cart-item-image">
+                <img src="${item.image}" alt="${item.title}" class="cart-item-image" loading="lazy">
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
