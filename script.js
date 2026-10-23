@@ -191,7 +191,14 @@ function hideCheckout() {
     const checkoutModel = document.getElementById('checkout-model');
     const wasActive = checkoutModel.classList.contains('active');
     checkoutModel.classList.remove('active');
-    if (wasActive) closeDialog();
+    if (wasActive) {
+        // Checkout is only ever reached from the cart, so closing it
+        // (via "Back to Cart", clicking outside, or Escape) should return
+        // to the cart view rather than leaving no panel open at all.
+        document.getElementById('cart-model').classList.add('active');
+        updateCartUI();
+        closeDialog();
+    }
 }
 
 // Payment method selection
