@@ -15,6 +15,40 @@ const products = [
 
 let cart = [];
 
+// Cart persistence (localStorage). Wrapped in try/catch because
+// localStorage can throw in private-browsing modes, when storage is
+// full, or when it's disabled entirely -- in any of those cases the
+// cart still works for the current page view, it just won't survive
+// a refresh.
+const CART_STORAGE_KEY = 'ae-fashion-cart';
+
+function saveCart() {
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+    } catch {
+        // Ignore -- see comment above.
+    }
+}
+
+function loadCart() {
+    let stored;
+    try {
+        stored = JSON.parse(localStorage.getItem(CART_STORAGE_KEY));
+    } catch {
+        return;
+    }
+    if (!Array.isArray(stored)) return;
+
+    // Rebuild cart items from the current product list rather than
+    // trusting the stored copy wholesale, so a stale/corrupted entry
+    // (e.g. a product id that no longer exists, or a bad quantity)
+    // can't crash rendering or resurrect a since-removed product.
+    cart = stored
+        .filter(item => item && Number.isInteger(item.quantity) && item.quantity > 0
+            && products.some(p => p.id === item.id))
+        .map(item => ({ ...products.find(p => p.id === item.id), quantity: item.quantity }));
+}
+
 // display products
 function renderProducts(filter = "all") {
     const grid = document.getElementById('product-grid');
@@ -27,7 +61,7 @@ function renderProducts(filter = "all") {
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-category">${product.category.toUpperCase()}</p>
                 <div class="product-price">$${product.price.toFixed(2)}</div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" aria-label="Add ${product.title} to cart">Add to Cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" aria-label="Add ${product.title} to cart">Add to Cart</button>
             </div>
         </div>
     `).join('');
@@ -70,6 +104,7 @@ function removeFromCart(id) {
 }
 
 function updateCartUI() {
+    saveCart();
     const count = cart.reduce((sum, item) => sum + item.quantity, 0);
     document.getElementById('cart-count').textContent = count;
 
@@ -93,12 +128,12 @@ function updateCartUI() {
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)" aria-label="Decrease quantity of ${item.title}">−</button>
+                        <button class="quantity-btn" data-id="${item.id}" data-change="-1" aria-label="Decrease quantity of ${item.title}">−</button>
                         <span class="quantity">${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)" aria-label="Increase quantity of ${item.title}">+</button>
+                        <button class="quantity-btn" data-id="${item.id}" data-change="1" aria-label="Increase quantity of ${item.title}">+</button>
                     </div>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})" aria-label="Remove ${item.title} from cart">×</button>
+                <button class="remove-item" data-id="${item.id}" aria-label="Remove ${item.title} from cart">×</button>
             </div>
         `).join('');
         document.getElementById('cart-total').style.display = 'block';
@@ -271,8 +306,39 @@ document.getElementById('cvv')?.addEventListener('input', e => {
     e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 4);
 });
 
+// Product grid and cart items are re-rendered (innerHTML replaced)
+// every time the filter changes or the cart updates, so a listener
+// attached directly to a button would be destroyed along with it on the
+// next render. Attaching one listener to the container that never gets
+// replaced, and reading which button was actually clicked off the event,
+// avoids re-attaching a listener per item and keeps the HTML itself free
+// of per-item inline onclick="" handlers.
+document.getElementById('product-grid').addEventListener('click', e => {
+    const btn = e.target.closest('.add-to-cart-btn');
+    if (btn) addToCart(Number(btn.dataset.id));
+});
+
+document.getElementById('cart-items').addEventListener('click', e => {
+    const quantityBtn = e.target.closest('.quantity-btn');
+    if (quantityBtn) {
+        updateQuantity(Number(quantityBtn.dataset.id), Number(quantityBtn.dataset.change));
+        return;
+    }
+    const removeBtn = e.target.closest('.remove-item');
+    if (removeBtn) removeFromCart(Number(removeBtn.dataset.id));
+});
+
+// The handful of buttons that are always on the page (not re-rendered)
+// can just be wired up directly.
+document.getElementById('cart-btn').addEventListener('click', toggleCart);
+document.getElementById('close-cart-btn').addEventListener('click', toggleCart);
+document.getElementById('checkout-btn').addEventListener('click', showCheckout);
+document.getElementById('backtocart-btn').addEventListener('click', hideCheckout);
+document.getElementById('checkout-form').addEventListener('submit', processOrder);
+
 // Init
 document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
+    loadCart();
     updateCartUI();
 });

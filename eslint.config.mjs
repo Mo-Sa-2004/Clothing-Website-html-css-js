@@ -15,16 +15,11 @@ export default [
                 document: "readonly",
                 alert: "readonly",
                 setTimeout: "readonly",
+                localStorage: "readonly",
             },
         },
         rules: {
-            // "local" (not the default "all") because every top-level
-            // function here (addToCart, updateQuantity, etc.) is called
-            // from inline onclick="" attributes in the HTML, which this
-            // rule has no visibility into -- it would otherwise flag every
-            // one of them as unused. Variables/functions inside a function
-            // body are still checked normally.
-            "no-unused-vars": ["warn", { vars: "local" }],
+            "no-unused-vars": "warn",
             "no-undef": "error",
             eqeqeq: ["warn", "smart"],
             "no-var": "error",

@@ -44,7 +44,7 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions">
-                <button class="cart-btn" onclick="toggleCart()">
+                <button class="cart-btn" id="cart-btn">
                     <i class="fas fa-shopping-cart"></i>
                     Cart
                     <span class="cart-count" id="cart-count">0</span>
@@ -118,7 +118,7 @@
         <div class="cart-model-content" role="dialog" aria-modal="true" aria-labelledby="cart-heading" tabindex="-1">
             <header class="cart-header">
                 <h3 id="cart-heading"><i class="fas fa-shopping-bag"></i> Shopping Cart</h3>
-                <button class="close-cart-btn" onclick="toggleCart()" aria-label="Close cart">
+                <button class="close-cart-btn" id="close-cart-btn" aria-label="Close cart">
                     <i class="fas fa-times"></i>
                 </button>
             </header>
@@ -127,7 +127,7 @@
 
             <div class="cart-total" id="cart-total">
                 <div class="total-price" id="total-price">Total: $0.00</div>
-                <button class="checkout-btn" onclick="showCheckout()">Proceed to Checkout</button>
+                <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
             </div>
         </div>
     </aside>
@@ -135,9 +135,9 @@
     <!-- Checkout Sidebar (same overlay) -->
     <aside class="cart-model checkout-model" id="checkout-model">
         <div class="cart-model-content" role="dialog" aria-modal="true" aria-label="Checkout" tabindex="-1">
-            <button class="backtocart-btn" onclick="hideCheckout()"><i class="fas fa-arrow-left"></i> Back to
+            <button class="backtocart-btn" id="backtocart-btn"><i class="fas fa-arrow-left"></i> Back to
                 Cart</button>
-            <form id="checkout-form" onsubmit="processOrder(event)">
+            <form id="checkout-form">
                 <section class="form-section">
                     <h4><i class="fas fa-box"></i> Shipping Information</h4>
                     <div class="form-group">
@@ -221,7 +221,7 @@
                 <a href="#shipping">Shipping Info</a>
                 <a href="#support">Customer Support</a>
             </nav>
-            <p>&copy; 2025 A&E Fashion. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2025</span> A&E Fashion. All rights reserved.</p>
         </div>
     </footer>
 
