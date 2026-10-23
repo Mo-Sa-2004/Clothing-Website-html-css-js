@@ -27,7 +27,7 @@ function renderProducts(filter = "all") {
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-category">${product.category.toUpperCase()}</p>
                 <div class="product-price">$${product.price.toFixed(2)}</div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" aria-label="Add ${product.title} to cart">Add to Cart</button>
             </div>
         </div>
     `).join('');
@@ -36,8 +36,12 @@ function renderProducts(filter = "all") {
 // Filter buttons
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         renderProducts(btn.dataset.category);
     });
 });
@@ -89,41 +93,125 @@ function updateCartUI() {
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">âˆ’</button>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)" aria-label="Decrease quantity of ${item.title}">−</button>
                         <span class="quantity">${item.quantity}</span>
-                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)" aria-label="Increase quantity of ${item.title}">+</button>
                     </div>
                 </div>
-                <button class="remove-item" onclick="removeFromCart(${item.id})">Ã—</button>
+                <button class="remove-item" onclick="removeFromCart(${item.id})" aria-label="Remove ${item.title} from cart">×</button>
             </div>
         `).join('');
         document.getElementById('cart-total').style.display = 'block';
     }
 }
 
+// ---- Cart/checkout dialog accessibility: focus trap + Escape to close ----
+// The cart and checkout panels are overlay "dialogs" (role="dialog" in the
+// HTML). When one opens, keyboard focus should move into it and stay
+// trapped there (Tab shouldn't escape to the page behind it), and Escape
+// should close it and return focus to wherever it was before.
+let lastFocusedElement = null;
+
+function getFocusableElements(container) {
+    return Array.from(container.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    )).filter(el => el.offsetParent !== null);
+}
+
+function openDialog(contentEl) {
+    lastFocusedElement = document.activeElement;
+    const focusable = getFocusableElements(contentEl);
+    (focusable[0] || contentEl).focus();
+}
+
+function closeDialog() {
+    const canRestore = lastFocusedElement
+        && document.body.contains(lastFocusedElement)
+        && lastFocusedElement.offsetParent !== null;
+    (canRestore ? lastFocusedElement : document.querySelector('.cart-btn'))?.focus();
+    lastFocusedElement = null;
+}
+
+document.addEventListener('keydown', e => {
+    const openModel = document.querySelector('.cart-model.active');
+    if (!openModel) return;
+    const dialogContent = openModel.querySelector('.cart-model-content');
+
+    if (e.key === 'Escape') {
+        e.preventDefault();
+        if (document.getElementById('checkout-model').classList.contains('active')) {
+            hideCheckout();
+        } else {
+            toggleCart();
+        }
+        return;
+    }
+
+    if (e.key === 'Tab' && dialogContent) {
+        const focusable = getFocusableElements(dialogContent);
+        if (focusable.length === 0) {
+            e.preventDefault();
+            return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    }
+});
+
 // Cart & Checkout toggle
 function toggleCart() {
     const cartModel = document.getElementById('cart-model');
+    const opening = !cartModel.classList.contains('active');
+
+    document.getElementById('checkout-model').classList.remove('active');
     cartModel.classList.toggle('active');
-    hideCheckout();
+
+    if (opening) {
+        openDialog(cartModel.querySelector('.cart-model-content'));
+    } else {
+        closeDialog();
+    }
 }
 
 function showCheckout() {
     document.getElementById('cart-model').classList.remove('active');
     document.getElementById('checkout-model').classList.add('active');
     updateCartUI(); // refresh total
+    openDialog(document.getElementById('checkout-model').querySelector('.cart-model-content'));
 }
 
 function hideCheckout() {
-    document.getElementById('checkout-model').classList.remove('active');
+    const checkoutModel = document.getElementById('checkout-model');
+    const wasActive = checkoutModel.classList.contains('active');
+    checkoutModel.classList.remove('active');
+    if (wasActive) closeDialog();
 }
 
 // Payment method selection
+function selectPaymentMethod(method) {
+    document.querySelectorAll('.payment-method').forEach(m => {
+        m.classList.remove('active');
+        m.setAttribute('aria-checked', 'false');
+    });
+    method.classList.add('active');
+    method.setAttribute('aria-checked', 'true');
+    document.getElementById('creditcardform').style.display = method.dataset.method === 'credit' ? 'block' : 'none';
+}
+
 document.querySelectorAll('.payment-method').forEach(method => {
-    method.addEventListener('click', () => {
-        document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
-        method.classList.add('active');
-        document.getElementById('creditcardform').style.display = method.dataset.method === 'credit' ? 'block' : 'none';
+    method.addEventListener('click', () => selectPaymentMethod(method));
+    method.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectPaymentMethod(method);
+        }
     });
 });
 
