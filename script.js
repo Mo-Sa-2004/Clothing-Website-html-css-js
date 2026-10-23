@@ -252,10 +252,10 @@ document.getElementById('checkout-model').addEventListener('click', e => {
 
 // Card formatting
 document.getElementById('cardNumber')?.addEventListener('input', e => {
-    let v = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
-    let matches = v.match(/\d{4,16}/g);
-    let match = matches && matches[0] || '';
-    let parts = [];
+    const v = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+    const matches = v.match(/\d{4,16}/g);
+    const match = (matches && matches[0]) || '';
+    const parts = [];
     for (let i = 0; i < match.length; i += 4) parts.push(match.substring(i, i + 4));
     if (parts.length) e.target.value = parts.join(' ');
     else e.target.value = v;

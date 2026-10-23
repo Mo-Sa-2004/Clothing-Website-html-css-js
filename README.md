@@ -1,5 +1,7 @@
 # A&E Fashion -- Clothing Store Website
 
+[![Lint](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml/badge.svg)](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml)
+
 A responsive front-end e-commerce site for a clothing brand, built with
 plain HTML, CSS, and JavaScript -- no frameworks, no build step. It has a
 browsable, filterable product catalog, a working shopping cart, a
@@ -56,7 +58,8 @@ Clothing-Website-html-css-js/
 |-- nav.js           Mobile hamburger menu toggle (shared)
 |-- contact.js       Contact form validation + submit handling
 |-- images/          Product and hero photos
-`-- screenshots/     Screenshots used in this README
+|-- screenshots/     Screenshots used in this README
+`-- .github/workflows/lint.yml   CI: runs the linters on every push/PR
 ```
 
 ## Getting started
@@ -82,6 +85,19 @@ following will work:
 
    Any other static file server (`npx serve`, the VS Code "Live Server"
    extension, etc.) works the same way.
+
+## Linting
+
+ESLint and Stylelint are set up (as dev dependencies, so they don't
+affect the site itself) and run automatically on every push/PR via
+GitHub Actions. To run them locally:
+
+```bash
+npm install
+npm run lint        # both JS and CSS
+npm run lint:js
+npm run lint:css
+```
 
 ## Known limitations
 

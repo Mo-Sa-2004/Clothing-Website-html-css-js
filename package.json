@@ -1,0 +1,27 @@
+{
+  "name": "clothing-website-html-css-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A responsive front-end e-commerce site for a clothing brand, built with plain HTML, CSS, and JavaScript -- no frameworks, no build step.",
+  "type": "module",
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js.git"
+  },
+  "author": "Mohammed Saeed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/issues"
+  },
+  "homepage": "https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js#readme",
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard": "^36.0.1"
+  }
+}

@@ -96,7 +96,7 @@ html {
     margin: 0 auto;
     background: var(--color-white);
 }
-/* this is for the section under the hero u just need to do the margin (VVVVMMM)*/
+/* this is for the section under the hero u just need to do the margin (VVVVMMM) */
 
 .section-title {
     text-align: center;
@@ -436,13 +436,9 @@ html {
 .payment-methods-container {
     display: flex;
     gap: .8rem;
-    margin-top: -.8rem;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin: -.8rem auto 1rem;
     align-items: center;
     justify-content: center;
-    
 }
 .payment-method {
     padding: .5rem 1rem;
