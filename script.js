@@ -37,22 +37,13 @@ function loadCart() {
     } catch {
         return;
     }
-    if (!Array.isArray(stored)) return;
-
-    // Rebuild cart items from the current product list rather than
-    // trusting the stored copy wholesale, so a stale/corrupted entry
-    // (e.g. a product id that no longer exists, or a bad quantity)
-    // can't crash rendering or resurrect a since-removed product.
-    cart = stored
-        .filter(item => item && Number.isInteger(item.quantity) && item.quantity > 0
-            && products.some(p => p.id === item.id))
-        .map(item => ({ ...products.find(p => p.id === item.id), quantity: item.quantity }));
+    cart = sanitizeStoredCart(stored, products);
 }
 
 // display products
 function renderProducts(filter = "all") {
     const grid = document.getElementById('product-grid');
-    const filtered = filter === "all" ? products : products.filter(p => p.category === filter);
+    const filtered = filterProducts(products, filter);
     
     grid.innerHTML = filtered.map(product => `
         <div class="product-card" data-category="${product.category}">
@@ -83,32 +74,26 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 // Cart functions
 function addToCart(id) {
     const product = products.find(p => p.id === id);
-    const existing = cart.find(item => item.id === id);
-    if (existing) existing.quantity += 1;
-    else cart.push({ ...product, quantity: 1 });
+    cart = addItemToCart(cart, product);
     updateCartUI();
-    
 }
 
 function updateQuantity(id, change) {
-    const item = cart.find(i => i.id === id);
-    if (!item) return;
-    item.quantity += change;
-    if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+    cart = updateItemQuantity(cart, id, change);
     updateCartUI();
 }
 
 function removeFromCart(id) {
-    cart = cart.filter(i => i.id !== id);
+    cart = removeItemFromCart(cart, id);
     updateCartUI();
 }
 
 function updateCartUI() {
     saveCart();
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const count = calculateCartCount(cart);
     document.getElementById('cart-count').textContent = count;
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+    const total = calculateCartTotal(cart).toFixed(2);
 
     document.getElementById('total-price').textContent = `Total: $${total}`;
     document.getElementById('checkout-total').textContent = `Total: $${total}`;

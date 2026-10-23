@@ -1,6 +1,6 @@
 # A&E Fashion -- Clothing Store Website
 
-[![Lint](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml/badge.svg)](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml)
+[![CI](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml/badge.svg)](https://github.com/Mo-Sa-2004/Clothing-Website-html-css-js/actions/workflows/lint.yml)
 
 A responsive front-end e-commerce site for a clothing brand, built with
 plain HTML, CSS, and JavaScript -- no frameworks, no build step. It has a
@@ -54,12 +54,15 @@ Clothing-Website-html-css-js/
 |-- shared.css       Header/nav/mobile-menu styles used by both pages
 |-- style.css        Homepage-specific styles
 |-- contact.css      Contact-page-specific styles
+|-- cart-logic.js    Pure product/cart helpers (filtering, totals, ...) --
+|                     no DOM access, so these are unit tested directly
 |-- script.js        Product data, cart logic, checkout simulation
 |-- nav.js           Mobile hamburger menu toggle (shared)
 |-- contact.js       Contact form validation + submit handling
+|-- test/            Unit tests for cart-logic.js (Node's built-in runner)
 |-- images/          Product and hero photos
 |-- screenshots/     Screenshots used in this README
-`-- .github/workflows/lint.yml   CI: runs the linters on every push/PR
+`-- .github/workflows/lint.yml   CI: lint + tests on every push/PR
 ```
 
 ## Getting started
@@ -86,17 +89,20 @@ following will work:
    Any other static file server (`npx serve`, the VS Code "Live Server"
    extension, etc.) works the same way.
 
-## Linting
+## Linting & tests
 
 ESLint and Stylelint are set up (as dev dependencies, so they don't
 affect the site itself) and run automatically on every push/PR via
-GitHub Actions. To run them locally:
+GitHub Actions, alongside a small unit test suite (Node's built-in
+test runner -- no extra test framework dependency) for the pure
+cart/filtering logic in `cart-logic.js`. To run them locally:
 
 ```bash
 npm install
 npm run lint        # both JS and CSS
 npm run lint:js
 npm run lint:css
+npm test             # cart-logic.js unit tests
 ```
 
 ## Known limitations
