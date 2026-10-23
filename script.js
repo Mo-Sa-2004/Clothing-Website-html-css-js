@@ -273,6 +273,32 @@ function processOrder(e) {
     e.preventDefault();
     if (cart.length === 0) return;
 
+    // The card fields only ever had input *formatting* (spaces, slashes),
+    // no actual validation -- a card number with the wrong number of
+    // digits, or an expiry date that's already in the past, would still
+    // "place an order" successfully. Only checked when Credit Card is
+    // the selected method: PayPal/Apple Pay hide this section entirely
+    // and don't use these fields.
+    const method = document.querySelector('.payment-method.active')?.dataset.method;
+    if (method === 'credit') {
+        const cardNumber = document.getElementById('cardNumber').value;
+        const expirydate = document.getElementById('expirydate').value;
+        const cvv = document.getElementById('cvv').value;
+
+        if (!isCardNumberValid(cardNumber)) {
+            alert('Please enter a valid card number (13-19 digits).');
+            return;
+        }
+        if (!isExpiryValid(expirydate)) {
+            alert('Please enter a valid, non-expired expiry date (MM/YY).');
+            return;
+        }
+        if (!isCvvValid(cvv)) {
+            alert('Please enter a valid CVV (3-4 digits).');
+            return;
+        }
+    }
+
     const btn = e.target.querySelector('.place-order-btn');
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
     btn.disabled = true;

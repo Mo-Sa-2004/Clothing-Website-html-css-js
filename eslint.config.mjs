@@ -44,16 +44,20 @@ export default [
                 calculateCartCount: "readonly",
                 calculateCartTotal: "readonly",
                 sanitizeStoredCart: "readonly",
+                isCardNumberValid: "readonly",
+                isCvvValid: "readonly",
+                isExpiryValid: "readonly",
             },
         },
     },
     {
-        // cart-logic.js checks `typeof module` to export itself for the
-        // Node test suite (see that file's top comment), and the test
-        // files use plain Node CommonJS (require/module). Neither is a
-        // browser global, so they're scoped to just these files rather
-        // than added to the globals every browser file gets above.
-        files: ["cart-logic.js", "test/**/*.js"],
+        // cart-logic.js/checkout-validation.js check `typeof module` to
+        // export themselves for the Node test suite (see their top
+        // comments), and the test files use plain Node CommonJS
+        // (require/module). Neither is a browser global, so they're
+        // scoped to just these files rather than added to the globals
+        // every browser file gets above.
+        files: ["cart-logic.js", "checkout-validation.js", "test/**/*.js"],
         languageOptions: {
             globals: {
                 module: "readonly",

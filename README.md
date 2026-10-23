@@ -26,8 +26,9 @@ checkout form, and a contact page, all running entirely in the browser.
   a running total. Persisted to `localStorage`, so it survives a page
   refresh or closing and reopening the tab.
 - **Checkout flow** -- a shipping/payment form with input formatting
-  (card number, expiry, CVV) and a simulated order placement (there is
-  no real payment backend -- see Limitations below).
+  and validation (card number length, a non-expired MM/YY date, CVV
+  length) and a simulated order placement (there is no real payment
+  backend -- see Limitations below).
 - **Contact form** -- validates the name/email/message fields, shows an
   inline success or error message, and simulates sending (again, no
   real backend yet).
@@ -57,10 +58,12 @@ Clothing-Website-html-css-js/
 |-- contact.css      Contact-page-specific styles
 |-- cart-logic.js    Pure product/cart helpers (filtering, totals, ...) --
 |                     no DOM access, so these are unit tested directly
+|-- checkout-validation.js   Pure card/CVV/expiry validation, same reason
 |-- script.js        Product data, cart logic, checkout simulation
 |-- nav.js           Mobile hamburger menu toggle (shared)
 |-- contact.js       Contact form validation + submit handling
-|-- test/            Unit tests for cart-logic.js (Node's built-in runner)
+|-- test/            Unit tests for the two files above (Node's built-in
+|                     test runner)
 |-- images/          Product and hero photos
 |-- screenshots/     Screenshots used in this README
 `-- .github/workflows/lint.yml   CI: lint + tests on every push/PR
@@ -96,14 +99,15 @@ ESLint and Stylelint are set up (as dev dependencies, so they don't
 affect the site itself) and run automatically on every push/PR via
 GitHub Actions, alongside a small unit test suite (Node's built-in
 test runner -- no extra test framework dependency) for the pure
-cart/filtering logic in `cart-logic.js`. To run them locally:
+cart/filtering logic in `cart-logic.js` and the checkout field
+validation in `checkout-validation.js`. To run them locally:
 
 ```bash
 npm install
 npm run lint        # both JS and CSS
 npm run lint:js
 npm run lint:css
-npm test             # cart-logic.js unit tests
+npm test             # cart-logic.js + checkout-validation.js unit tests
 ```
 
 ## Known limitations
