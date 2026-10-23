@@ -31,6 +31,29 @@
     box-sizing: border-box;
 }
 
+/* Skip link: lets keyboard/screen-reader users jump straight past the
+   repeated header/nav to the page's actual content (WCAG 2.4.1 "Bypass
+   Blocks"), instead of having to tab through every nav link on every
+   page load. Sits off-screen until it receives focus, then appears
+   above the fixed header (z-index 2100 vs. the header's 1000) so it's
+   actually visible when a keyboard user tabs to it. */
+.skip-link {
+    position: absolute;
+    top: -3rem;
+    left: 0;
+    z-index: 2100;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* Header */
 .header {
     background-color: rgba(255, 255, 255, 0.95);
