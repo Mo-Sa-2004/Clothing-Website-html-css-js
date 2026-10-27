@@ -1,16 +1,21 @@
+// `image` is the full-size (~700px) file, right-sized for the product grid
+// card at 2x pixel density. `imageSmall` is a ~350px variant of the same
+// photo, used as the srcset's 1x candidate in the grid and as the sole
+// image for the 80x80 cart thumbnail, which never needs more than ~160px
+// even on a retina screen.
 const products = [
-    { id: 1, title: "Premium Cotton T-Shirt", category: "men", price: 59.99, image: "images/cotton-t-shirt.webp" },
-    { id: 2, title: "Elegant Silk Dress", category: "women", price: 189.99, image: "images/Elegant-Dress.webp" },
-    { id: 3, title: "Leather Crossbody Bag", category: "accessories", price: 129.99, image: "images/Leather-Bag.webp" },
-    { id: 4, title: "Classic Denim Jacket", category: "men", price: 99.99, image: "images/Classic-Jacket.webp" },
-    { id: 5, title: "Floral Summer Blouse", category: "women", price: 79.99, image: "images/Floral-Blouse.webp" },
-    { id: 6, title: "Minimalist Watch", category: "accessories", price: 249.99, image: "images/Watch.webp" },
-    { id: 7, title: "Wool Blend Sweater", category: "men", price: 119.99, image: "images/Blend-Sweater.webp" },
-    { id: 8, title: "High-Waist Trousers", category: "women", price: 89.99, image: "images/High-Waist.webp" },
-    { id: 9, title: "Vintage Sunglasses", category: "accessories", price: 89.99, image: "images/Vintage-Sunglasses.webp" },
-    { id: 10, title: "Casual Polo Shirt", category: "men", price: 69.99, image: "images/Polo-Shirt.webp" },
-    { id: 11, title: "Designer Blazer", category: "women", price: 159.99, image: "images/Blazer-women.webp" },
-    { id: 12, title: "Premium Backpack", category: "accessories", price: 149.99, image: "images/Backpack.webp" }
+    { id: 1, title: "Premium Cotton T-Shirt", category: "men", price: 59.99, image: "images/cotton-t-shirt.webp", imageSmall: "images/cotton-t-shirt-350.webp" },
+    { id: 2, title: "Elegant Silk Dress", category: "women", price: 189.99, image: "images/Elegant-Dress.webp", imageSmall: "images/Elegant-Dress-350.webp" },
+    { id: 3, title: "Leather Crossbody Bag", category: "accessories", price: 129.99, image: "images/Leather-Bag.webp", imageSmall: "images/Leather-Bag-350.webp" },
+    { id: 4, title: "Classic Denim Jacket", category: "men", price: 99.99, image: "images/Classic-Jacket.webp", imageSmall: "images/Classic-Jacket-350.webp" },
+    { id: 5, title: "Floral Summer Blouse", category: "women", price: 79.99, image: "images/Floral-Blouse.webp", imageSmall: "images/Floral-Blouse-350.webp" },
+    { id: 6, title: "Minimalist Watch", category: "accessories", price: 249.99, image: "images/Watch.webp", imageSmall: "images/Watch-350.webp" },
+    { id: 7, title: "Wool Blend Sweater", category: "men", price: 119.99, image: "images/Blend-Sweater.webp", imageSmall: "images/Blend-Sweater-350.webp" },
+    { id: 8, title: "High-Waist Trousers", category: "women", price: 89.99, image: "images/High-Waist.webp", imageSmall: "images/High-Waist-350.webp" },
+    { id: 9, title: "Vintage Sunglasses", category: "accessories", price: 89.99, image: "images/Vintage-Sunglasses.webp", imageSmall: "images/Vintage-Sunglasses-350.webp" },
+    { id: 10, title: "Casual Polo Shirt", category: "men", price: 69.99, image: "images/Polo-Shirt.webp", imageSmall: "images/Polo-Shirt-350.webp" },
+    { id: 11, title: "Designer Blazer", category: "women", price: 159.99, image: "images/Blazer-women.webp", imageSmall: "images/Blazer-women-350.webp" },
+    { id: 12, title: "Premium Backpack", category: "accessories", price: 149.99, image: "images/Backpack.webp", imageSmall: "images/Backpack-350.webp" }
 ];
 
 let cart = [];
@@ -47,7 +52,7 @@ function renderProducts(filter = "all") {
     
     grid.innerHTML = filtered.map(product => `
         <div class="product-card" data-category="${product.category}">
-            <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+            <img src="${product.image}" srcset="${product.imageSmall} 350w, ${product.image} 700w" sizes="(max-width: 480px) 85vw, 346px" alt="${product.title}" class="product-image" loading="lazy">
             <div class="product-info">
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-category">${product.category.toUpperCase()}</p>
@@ -134,7 +139,7 @@ function updateCartUI() {
     } else {
         document.getElementById('cart-items').innerHTML = cart.map(item => `
             <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" class="cart-item-image" loading="lazy">
+                <img src="${item.imageSmall}" alt="${item.title}" class="cart-item-image" loading="lazy">
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
