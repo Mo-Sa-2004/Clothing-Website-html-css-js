@@ -54,7 +54,7 @@ html {
 .hero-bg {
     position: absolute;
     inset: 0;
-    background: url('images/hero-bg.jpg') center/cover;
+    background: url('images/hero-bg.webp') center/cover;
     opacity: 0.6;
 }
 
