@@ -23,8 +23,8 @@ html {
     gap: 0.5rem;
 }
 .cart-btn:hover {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
+    background-color: var(--color-primary-strong);
+    border-color: var(--color-primary-strong);
     color: var(--color-white);
 }
 .cart-count {
@@ -312,7 +312,7 @@ html {
     cursor: pointer;
 }
 .quantity-btn:hover {
-    background: var(--color-primary);
+    background: var(--color-primary-strong);
     color: var(--color-white);
     transition: all 0.4s ease;
     transform: translateY(-1px);
@@ -364,11 +364,11 @@ html {
 }
 
 .checkout-btn {
-    background: var(--color-primary);
+    background: var(--color-primary-strong);
     color: var(--color-white);
 }
 .checkout-btn:hover {
-    background: #335ecc;
+    background: #294ba3;
     transition: all 0.3s ease;
     transform: translateY(-3px);
 }

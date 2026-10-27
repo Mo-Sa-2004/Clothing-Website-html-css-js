@@ -22,6 +22,8 @@
     <meta name="twitter:description" content="Get in touch with A&E Fashion -- email, phone, or send us a message directly.">
     <meta name="twitter:image" content="https://mo-sa-2004.github.io/Clothing-Website-html-css-js/icons/social-preview.jpg">
 
+    <link rel="canonical" href="https://mo-sa-2004.github.io/Clothing-Website-html-css-js/contact.html">
+
     <link rel="stylesheet" href="shared.css">
     <link rel="stylesheet" href="contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -29,9 +31,11 @@
         referrerpolicy="no-referrer">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Header -->
     <header class="header">
-        <nav class="nav">
+        <nav class="nav" aria-label="Main">
             <a href="index.html" class="logo-link">
                 <div class="logo">A&E Fashion</div>
             </a>
@@ -50,15 +54,15 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <section class="contact">
             <div class="container">
                 <h1>Contact Us</h1>
                 <p>We'd love to hear from you! Reach out with any questions or feedback.</p>
 
                 <div class="contact-info">
-                    <p><i class="fas fa-envelope"></i> Email: support@aefashion.com</p>
-                    <p><i class="fas fa-phone"></i> Phone: +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:support@aefashion.com">support@aefashion.com</a></p>
+                    <p><i class="fas fa-phone"></i> Phone: <a href="tel:+15551234567">+1 (555) 123-4567</a></p>
                     <p><i class="fas fa-map-marker-alt"></i> Location: Amman, Jordan</p>
                 </div>
 
@@ -76,7 +80,7 @@
     <!-- Footer with links -->
     <footer class="footer">
         <div class="footer-content">
-            <nav class="footer-links">
+            <nav class="footer-links" aria-label="Footer">
                 <a href="#privacy">Privacy Policy</a>
                 <a href="#terms">Terms of Service</a>
                 <a href="#returns">Returns & Exchanges</a>

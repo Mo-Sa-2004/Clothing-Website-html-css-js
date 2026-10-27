@@ -11,6 +11,15 @@
    variable wouldn't be removing any real duplication there. */
 :root {
     --color-primary: #3c81e9;
+    /* White text on --color-primary only comes out to ~3.8:1, below the
+       4.5:1 WCAG AA minimum for normal-size text (confirmed with
+       axe-core, not eyeballed) -- --color-primary itself stays as-is
+       since it passes everywhere else it's used (text-on-white, borders,
+       icons), but anywhere white text sits ON TOP of it needs this
+       darker shade instead. Reuses the exact hex already used as the
+       checkout button's hover-darken color, promoted to a token now
+       that it's the right fix in more than one place. */
+    --color-primary-strong: #335ecc;
     --color-text: #1a1a1a;
     --color-text-muted: #666;
     --color-text-soft: #444;
@@ -42,7 +51,7 @@
     top: -3rem;
     left: 0;
     z-index: 2100;
-    background: var(--color-primary);
+    background: var(--color-primary-strong);
     color: var(--color-white);
     padding: 0.8rem 1.5rem;
     text-decoration: none;
@@ -190,4 +199,71 @@
     .nav-links.active {
         display: flex;
     }
+}
+
+/* 404 page. Scoped under body.error-page/.error-section rather than
+   reusing contact.css's generic .container, so 404.html can stay a
+   single self-contained file (just shared.css, no page-specific
+   stylesheet or Font Awesome needed for a page that should still look
+   right even if the CDN icon font is what's unreachable). */
+body.error-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--color-bg-page);
+    color: var(--color-text);
+}
+
+.error-page .main-content {
+    flex: 1;
+}
+
+.error-page .footer {
+    margin-top: auto;
+}
+
+.error-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.error-section .container {
+    max-width: 500px;
+}
+
+.error-section .error-code {
+    font-size: 6rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
+.error-section h1 {
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.error-section p {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+.error-section .cta-btn {
+    display: inline-block;
+    background: var(--color-primary-strong);
+    color: var(--color-white);
+    padding: 1rem 2.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.error-section .cta-btn:hover {
+    transform: translateY(-3px);
 }

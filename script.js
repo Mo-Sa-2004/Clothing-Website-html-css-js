@@ -52,7 +52,7 @@ function renderProducts(filter = "all") {
                 <h3 class="product-title">${product.title}</h3>
                 <p class="product-category">${product.category.toUpperCase()}</p>
                 <div class="product-price">$${product.price.toFixed(2)}</div>
-                <button class="add-to-cart-btn" data-id="${product.id}" aria-label="Add ${product.title} to cart">Add to Cart</button>
+                <button class="add-to-cart-btn" data-id="${product.id}" aria-label="Add to Cart: ${product.title}">Add to Cart</button>
             </div>
         </div>
     `).join('');
