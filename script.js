@@ -144,12 +144,12 @@ function updateCartUI() {
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" data-id="${item.id}" data-change="-1" aria-label="Decrease quantity of ${item.title}">−</button>
+                        <button class="quantity-btn" data-id="${item.id}" data-change="-1" aria-label="Decrease quantity of ${item.title}">âˆ’</button>
                         <span class="quantity">${item.quantity}</span>
                         <button class="quantity-btn" data-id="${item.id}" data-change="1" aria-label="Increase quantity of ${item.title}">+</button>
                     </div>
                 </div>
-                <button class="remove-item" data-id="${item.id}" aria-label="Remove ${item.title} from cart">×</button>
+                <button class="remove-item" data-id="${item.id}" aria-label="Remove ${item.title} from cart">Ã—</button>
             </div>
         `).join('');
         document.getElementById('cart-total').style.display = 'block';
@@ -257,19 +257,38 @@ function selectPaymentMethod(method) {
     document.querySelectorAll('.payment-method').forEach(m => {
         m.classList.remove('active');
         m.setAttribute('aria-checked', 'false');
+        m.setAttribute('tabindex', '-1');
     });
     method.classList.add('active');
     method.setAttribute('aria-checked', 'true');
+    method.setAttribute('tabindex', '0');
     document.getElementById('creditcardform').style.display = method.dataset.method === 'credit' ? 'block' : 'none';
 }
 
 document.querySelectorAll('.payment-method').forEach(method => {
-    method.addEventListener('click', () => selectPaymentMethod(method));
+    method.addEventListener('click', () => {
+        selectPaymentMethod(method);
+        method.focus();
+    });
     method.addEventListener('keydown', e => {
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             selectPaymentMethod(method);
+            return;
         }
+
+        const forward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
+        const backward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
+        if (!forward && !backward) return;
+        e.preventDefault();
+
+        const methods = Array.from(document.querySelectorAll('.payment-method'));
+        const currentIndex = methods.indexOf(method);
+        const nextIndex = forward
+            ? (currentIndex + 1) % methods.length
+            : (currentIndex - 1 + methods.length) % methods.length;
+        selectPaymentMethod(methods[nextIndex]);
+        methods[nextIndex].focus();
     });
 });
 
