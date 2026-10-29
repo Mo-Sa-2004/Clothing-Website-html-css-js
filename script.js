@@ -144,12 +144,12 @@ function updateCartUI() {
                     <div class="cart-item-title">${item.title}</div>
                     <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
                     <div class="quantity-controls">
-                        <button class="quantity-btn" data-id="${item.id}" data-change="-1" aria-label="Decrease quantity of ${item.title}">âˆ’</button>
+                        <button class="quantity-btn" data-id="${item.id}" data-change="-1" aria-label="Decrease quantity of ${item.title}">−</button>
                         <span class="quantity">${item.quantity}</span>
                         <button class="quantity-btn" data-id="${item.id}" data-change="1" aria-label="Increase quantity of ${item.title}">+</button>
                     </div>
                 </div>
-                <button class="remove-item" data-id="${item.id}" aria-label="Remove ${item.title} from cart">Ã—</button>
+                <button class="remove-item" data-id="${item.id}" aria-label="Remove ${item.title} from cart">×</button>
             </div>
         `).join('');
         document.getElementById('cart-total').style.display = 'block';
